@@ -1,0 +1,40 @@
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(180deg, #FAFAFA 0%, #E1EEFF 50%, #C2CFD8 100%);
+  width: 200px; /* Sesuaikan lebar navbar sesuai kebutuhan Anda */
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.nav-list li {
+  margin-bottom: 10px;
+}
+
+.nav-list ul li {
+  margin-top: -5;
+}
+
+.nav-list li a,
+.nav-list li button {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.nav-list li a:hover,
+.nav-list li button:hover {
+  background: linear-gradient(180deg, #FAFAFA 0%, #E1EEFF 50%, #C2CFD8 100%);
+}
+
+.nav-list li .active {
+  background-color: #555;
+  color: white;
+}

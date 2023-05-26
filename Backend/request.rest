@@ -1,0 +1,126 @@
+###
+GET  http://localhost:5000/users
+Authorization: Bearer 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJLYXBpYmFyYSIsImVtYWlsIjoia2FwaWJhcmFAZ21haWwuY29tIiwiaWF0IjoxNjgzMzg3Njc0LCJleHAiOjE2ODMzODc2OTR9.Kzs19AV-g-Ukjuc6S3COjzemxUX_hT1LcdHgbe39Mjg
+###
+POST  http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name" : "Bryan",
+    "email" : "bryan@gmail.com",
+    "nomer" : "081256518211",
+    "password": "ganteng",
+    "confPassword" : "ganteng"
+}
+
+###
+POST  http://localhost:5000/users
+Content-Type: application/json
+
+{
+    "name" : "Kapibara",
+    "email" : "kapibara@gmail.com",
+    "nomer" : "081256518211",
+    "password": "12345",
+    "confPassword" : "12345"
+}
+###
+POST  http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "name" : "Jeffan",
+    "email" : "Jeffan@gmail.com",
+    "nomer" : "0812565183334",
+    "password": "jeffan",
+    "confPassword" : "jeffan"
+}
+
+###
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email" : "kapibara@gmail.com",
+    "password": "12345"
+}
+###
+POST  http://localhost:5000/login
+Content-Type: application/json
+
+{
+    "email" : "bryan@gmail.com",
+    "password": "ganteng"
+}
+
+###
+
+POST  http://localhost:5000/payment
+Content-Type: application/json
+
+{
+    "number" : "4242424242424242",
+    "exp_month": "11",
+    "exp_year" : "24",
+    "cvc" : "536",
+}
+
+###
+POST  http://localhost:5000/register
+Content-Type: application/json
+
+{
+    "name" : "Jeffan",
+    "email" : "Jeffan@gmail.com",
+    "nomer" : "0812565183334",
+    "password": "jeffan",
+    "confPassword" : "jeffan"
+}
+
+###
+GET http://localhost:5000/users/Adminzoepy@gmail.com
+
+###
+GET http://localhost:5000/users
+
+###
+DELETE http://localhost:5000/logout
+
+###
+
+DELETE http://localhost:5000/logout
+
+
+###
+GET http://localhost:5000/payment
+
+###
+GET http://localhost:5000/product/4
+
+###
+POST http://localhost:5000/product
+Content-Type: application/json
+
+{
+    "name": "Wiskas",
+    "jenis" : "barang",
+    "harga": "20000000",
+    "file" : "img.jpg",
+    "url" : "X-Http-Method-Override: "
+}
+
+###
+PATCH http://localhost:5000/product/1
+Content-Type: application/json
+
+{
+    "name": "Kapibara",
+    "harga": "20000000"
+}
+
+###
+GET http://localhost:5000/product/2
+
+###
+GET http://localhost:5000/checkLogin
