@@ -1,6 +1,7 @@
 import Product from "../models/product.js";
 import stripeAPI from "stripe";
 import Transaksi from "../models/Payment.js";
+import Order from "../models/Order.js";
 import Users from "../models/usersModel.js";
 import { v4 as uuidv4 } from "uuid";
 
@@ -81,6 +82,17 @@ export const processPayment = async (req, res) => {
       total_harga: harga,
     });
 
+    // Create an order
+    const order = await Order.create({
+      productId,
+      userId: uuid,
+      total: harga,
+      cardNumber: cardToken.number,
+      cardCVC: cardToken.cvc,
+      cardExpMonth: cardToken.exp_month,
+      cardExpYear: cardToken.exp_year,
+    });
+
     // Return success message, product details, and transaction
     return res.status(200).json({
       msg: "Payment processed successfully",
@@ -89,6 +101,7 @@ export const processPayment = async (req, res) => {
         harga,
       },
       transaksi,
+      order,
       clientSecret: paymentIntent.client_secret,
       userId: uuid, // Include the user ID in the responses
       id_Produk: productId,

@@ -1,49 +1,40 @@
-const { Sequelize } = require('sequelize');
-const db = require('../config/database.js');
+import { DataTypes } from 'sequelize';
+import sequelize from '../config/database.js';
 
-const { DataTypes } = Sequelize;
-const Order = db.define(
-  'Order',
-  {
-    userId: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    products: {
-      type: DataTypes.JSON,
-      defaultValue: [],
-      get() {
-        return JSON.parse(this.getDataValue('products'));
-      },
-      set(value) {
-        this.setDataValue('products', JSON.stringify(value));
-      }
-    },
-    subtotal: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
-    total: {
-      type: DataTypes.FLOAT,
-      allowNull: false
-    },
-    shipping: {
-      type: DataTypes.JSON,
-      allowNull: false
-    },
-    delivery_status: {
-      type: DataTypes.STRING,
-      defaultValue: 'pending'
-    },
-    payment_status: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
+const Order = sequelize.define('Order', {
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    primaryKey: true,
   },
-  {
-    timestamps: true,
-    tableName: 'orders'
-  }
-);
+  productId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+  userId: {
+    type: DataTypes.UUID,
+    allowNull: false,
+  },
+  total: {
+    type: DataTypes.DECIMAL(10, 2),
+    allowNull: false,
+  },
+  cardNumber: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  cardCVC: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  cardExpMonth: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+  cardExpYear: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+  },
+});
 
-module.exports = Order;
+export default Order;

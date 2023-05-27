@@ -3,7 +3,9 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 import { Modal, Button, Form } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./style.css";
+import "./payment.css";
+import card1 from "./public/chip.png";
+import card2 from "./public/visa.png";
 
 import { loadStripe } from "@stripe/stripe-js";
 
@@ -53,7 +55,7 @@ const PaymentPage = () => {
         cardToken: cardToken,
       });
 
-      const { clientSecret, msg, userId,product,id_Produk } = response.data;
+      const { clientSecret, msg, userId, product, id_Produk } = response.data;
 
       if (msg === "Payment processed successfully") {
         setPaymentStatus("success");
@@ -106,6 +108,41 @@ const PaymentPage = () => {
       setHarga(harga * value);
     }
   };
+
+  const handleCardNumberInput = (event) => {
+    setCardNumber(event.target.value);
+  };
+
+  const handleExpMonthInput = (event) => {
+    setCardExpMonth(event.target.value);
+  };
+
+  const handleExpYearInput = (event) => {
+    setCardExpYear(event.target.value);
+  };
+
+  const handleCVVInput = (event) => {
+    setCardCVC(event.target.value);
+  };
+
+  const handleCVVMouseEnter = () => {
+    document.querySelector(".front").style.transform =
+      "perspective(1000px) rotateY(-180deg)";
+    document.querySelector(".back").style.transform =
+      "perspective(1000px) rotateY(0deg)";
+  };
+
+  const handleCVVMouseLeave = () => {
+    document.querySelector(".front").style.transform =
+      "perspective(1000px) rotateY(0deg)";
+    document.querySelector(".back").style.transform =
+      "perspective(1000px) rotateY(180deg)";
+  };
+
+  const handleCVVInputChange = () => {
+    document.querySelector(".cvv-box").innerText = cardCVC;
+  };
+
   return (
     <div className="payment-container">
       <h2>Payment Page</h2>
@@ -134,7 +171,6 @@ const PaymentPage = () => {
             <p>Product Price: {productPrice}</p>
             {idProduct && <p>Your Product ID: {idProduct}</p>}
             {idd && <p>Your Payment ID: {idd}</p>}
-
           </Modal.Body>
           <Modal.Footer>
             <h5 className="notification">
@@ -198,38 +234,121 @@ const PaymentPage = () => {
                   min="1"
                 />
               </Form.Group>
-              <Form.Group controlId="formCardNumber">
-                <Form.Label>Card Number:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={cardNumber}
-                  onChange={(e) => setCardNumber(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId="formCardExpMonth">
-                <Form.Label>Card Expiry Month:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={cardExpMonth}
-                  onChange={(e) => setCardExpMonth(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId="formCardExpYear">
-                <Form.Label>Card Expiry Year:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={cardExpYear}
-                  onChange={(e) => setCardExpYear(e.target.value)}
-                />
-              </Form.Group>
-              <Form.Group controlId="formCardCVC">
-                <Form.Label>Card CVC:</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={cardCVC}
-                  onChange={(e) => setCardCVC(e.target.value)}
-                />
-              </Form.Group>
+              <div className="container mt-5">
+                <div className="card-container">
+                  <div className="front">
+                    <div className="image">
+                      <img src={card1} alt="" />
+                      <img src={card2} alt="" />
+                    </div>
+                    <div className="card-number-box">{cardNumber}</div>
+                    <div className="flexbox">
+                      <div className="box">
+                        <span>expires</span>
+                        <div className="expiration">
+                          <span className="exp-month">{cardExpMonth}</span>
+                          <span className="exp-year">{cardExpYear}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="back">
+                    <div className="stripe"></div>
+                    <div className="box">
+                      <span>cvv</span>
+                      <div className="cvv-box">{cardCVC}</div>
+                      <img src="image/visa.png" alt="" />
+                    </div>
+                  </div>
+                </div>
+
+                <form action="">
+                  <div className="inputBox">
+                    <span>card number</span>
+                    <input
+                      type="text"
+                      maxLength="16"
+                      className="card-number-input"
+                      value={cardNumber}
+                      onChange={(e) => {
+                        setCardNumber(e.target.value);
+                        handleCardNumberInput(e);
+                      }}
+                    />
+                  </div>
+
+                  <div className="flexbox">
+                    <div className="inputBox">
+                      <span>expiration mm</span>
+                      <select
+                        name=""
+                        id=""
+                        className="month-input"
+                        value={cardExpMonth}
+                        onChange={(e) => {
+                          setCardExpMonth(e.target.value);
+                          handleExpMonthInput(e);
+                        }}>
+                        <option value="month" selected disabled>
+                          month
+                        </option>
+                        <option value="01">01</option>
+                        <option value="02">02</option>
+                        <option value="03">03</option>
+                        <option value="04">04</option>
+                        <option value="05">05</option>
+                        <option value="06">06</option>
+                        <option value="07">07</option>
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                      </select>
+                    </div>
+                    <div className="inputBox">
+                      <span>expiration yy</span>
+                      <select
+                        name=""
+                        id=""
+                        className="year-input"
+                        value={cardExpYear}
+                        onChange={(e) => {
+                          setCardExpYear(e.target.value);
+                          handleExpYearInput(e);
+                        }}>
+                        <option value="year" selected disabled>
+                          year
+                        </option>
+                        <option value="2022">2022</option>
+                        <option value="2023">2023</option>
+                        <option value="2024">2024</option>
+                        <option value="2025">2025</option>
+                        <option value="2026">2026</option>
+                        <option value="2027">2027</option>
+                        <option value="2028">2028</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="inputBox">
+                    <span>cvv</span>
+                    <input
+                      type="text"
+                      maxLength="3"
+                      className="cvv-input"
+                      value={cardCVC}
+                      onChange={(e) => {
+                        setCardCVC(e.target.value);
+                        handleCVVInput(e);
+                      }}
+                      onMouseEnter={handleCVVMouseEnter}
+                      onMouseLeave={handleCVVMouseLeave}
+                      onInput={handleCVVInputChange}
+                    />
+                  </div>
+                </form>
+              </div>
             </Form>
           </Modal.Body>
           <Modal.Footer>

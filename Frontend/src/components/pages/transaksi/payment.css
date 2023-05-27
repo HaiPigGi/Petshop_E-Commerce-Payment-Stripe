@@ -1,0 +1,165 @@
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 20px;
+  }
+  
+  @media (max-width: 768px) {
+    .card-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .product-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    border: 2px solid cyan;
+  }
+  .card-image {
+    background: linear-gradient(180deg, #FAFAFA 0%, #E1EEFF 50%, #C2CFD8 100%);
+  }
+  .card-content {
+     background-color: #DBDFEA;
+  }
+  .card-footer {
+    background: linear-gradient(180deg, #FAFAFA 0%, #E1EEFF 50%, #C2CFD8 100%);
+  }
+  
+  .centered-image {
+    width: 50%;
+    height: 80%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-container {
+    width: 400px;
+    height: 250px;
+    perspective: 1000px;
+    margin: 0 auto;
+  }
+  
+  .front,
+  .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+  
+  .front {
+    background-color: #004cff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .back {
+    background-color: #004cff;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .card-container:hover .front {
+    transform: rotateY(180deg);
+  }
+  
+  .card-container:hover .back {
+    transform: rotateY(0deg);
+  }
+  
+  .card-number-box {
+    font-size: 20px;
+    color: #fff;
+  }
+  
+  .flexbox {
+    display: flex;
+  }
+  
+  .box {
+    flex: 1;
+    color: #fff;
+  }
+  
+  .cvv-box {
+    padding: 10px;
+    background-color: #fff;
+    color: #000;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 18px;
+  }
+  
+  .stripe {
+    background-color: #000;
+    height: 10px;
+    margin: 10px 0;
+  }
+  
+
+  .inputBox {
+    margin-top: 20px;
+  }
+  
+  .inputBox span {
+    display: block;
+    color: #999;
+    padding-bottom: 5px;
+  }
+  
+  .inputBox input,
+  .inputBox select {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #444;
+  }
+  
+  .month-input,
+  .year-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px;
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+    color: #444;
+  }
+  
+  .cvv-input {
+    width: 80px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #444;
+  }
+  
+  .cvv-input:focus {
+    outline: none;
+  }
+  
+  .card-number-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    color: #444;
+    font-family: monospace;
+  }
+  
+  .card-number-input:focus {
+    outline: none;
+  }
+  

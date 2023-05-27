@@ -14,6 +14,7 @@ import Product from './src/models/product.js';
 import SequelizeStore from "connect-session-sequelize";
 import session from 'express-session';
 import Transaksi from './src/models/Payment.js';
+import Order from './src/models/Order.js';
 const app = express();
 
 // Inisialisasi Sequelize
@@ -66,4 +67,5 @@ app.use(express.json());
 app.use(router);
 app.use(RoutesUser);
 store.sync();
+Order.sync();
 app.listen(5000, () => console.log('Server berjalan di http://localhost:5000'));
