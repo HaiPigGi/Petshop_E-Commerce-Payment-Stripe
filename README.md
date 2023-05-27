@@ -1,6 +1,9 @@
 # RPL_Petshop_be_fe
 Ini adalah project rpl dengan menggunakan react js disisi frontend dan node js express di sisi backend
 
+![image](https://github.com/HaiPigGi/Petshop_E-Commerce-Payment-Stripe/assets/119752348/712a0356-9d1a-48f8-82a9-ed6c2db3423c)
+
+
 HOW TO RUN THIS CODE ___
 
 First you can Clone this code with : 
