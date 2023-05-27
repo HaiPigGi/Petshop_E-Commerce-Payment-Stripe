@@ -22,6 +22,7 @@ Install ALL Dependency
 2. install with command "npm install"
 3. Go To create the Database "npm create db"
 4. And then run with "npm run start"
+5. For The API Key at the PaymentController you can also change it into your API key (I Use Stripe)
 
 ### Frontend
 1. Go to Frontend WIth "cd frontend"
