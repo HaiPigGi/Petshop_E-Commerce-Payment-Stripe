@@ -3,6 +3,12 @@ Ini adalah project rpl dengan menggunakan react js disisi frontend dan node js e
 
 HOW TO RUN THIS CODE ___
 
+First you can Clone this code with : 
+1.  open your Git Bash 
+2.  write the command "git clone https://github.com/HaiPigGi/Petshop_E-Commerce-Payment-Stripe.git"
+3.  And then Enter
+
+
 Install ALL Dependency
 
 ### Backend
