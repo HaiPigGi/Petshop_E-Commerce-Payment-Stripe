@@ -124,3 +124,15 @@ GET http://localhost:5000/product/2
 
 ###
 GET http://localhost:5000/checkLogin
+
+
+###
+
+POST http://localhost:5000/sendMail
+Content-Type: application/json
+
+{
+  "to": "anjaybetul2@gmail.com",
+  "subject": "Hello Bryan",
+  "text": "This is a test email sent using Nodemailer."
+}
