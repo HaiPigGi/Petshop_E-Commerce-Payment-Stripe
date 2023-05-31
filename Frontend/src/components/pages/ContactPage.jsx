@@ -1,19 +1,49 @@
 import React, { useState } from "react";
-import { Form, Button } from "react-bootstrap";
+import { Form, Button, Alert } from "react-bootstrap";
+import axios from "axios";
+import { useHistory } from "react-router-dom";
 
 function Contact() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const history = useHistory();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // Handle form submission here
+
+    const email = sessionStorage.getItem('email');
+    const token = sessionStorage.getItem('token');
+
+    if (!email || !token) {
+      // Redirect user to login
+      history.push("/login");
+      return;
+    }
+
+    try {
+      const response = await axios.post("http://localhost:5000/sendMail", {
+        to: "anjaybetul2@gmail.com",
+        subject: name,
+        text: message,
+      });
+      console.log(response.data);
+      setSuccessMessage("Terima kasih atas masukkan Anda");
+    } catch (error) {
+      console.error(error);
+      setErrorMessage("Terjadi kesalahan. Silakan coba lagi nanti.");
+    }
+
+    setName("");
+    setMessage("");
   };
 
   return (
     <div className="container">
       <h1>Contact Us</h1>
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
@@ -22,16 +52,6 @@ function Contact() {
             placeholder="Enter your name"
             value={name}
             onChange={(event) => setName(event.target.value)}
-          />
-        </Form.Group>
-
-        <Form.Group controlId="formBasicEmail">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter your email"
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
           />
         </Form.Group>
 
