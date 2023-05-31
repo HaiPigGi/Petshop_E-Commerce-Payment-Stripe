@@ -42,7 +42,13 @@ export const Register = async (req, res) => {
       .status(400)
       .json({ msg: "Password dan Confirm Password Tidak Cocok" });
   }
-  
+
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ msg: "Password harus memiliki minimal 8 karakter" });
+  }
+
   const salt = await bcrypt.genSalt();
   const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -59,6 +65,7 @@ export const Register = async (req, res) => {
     console.log(err);
   }
 };
+
 
 
 export const Login = async (req, res) => {
