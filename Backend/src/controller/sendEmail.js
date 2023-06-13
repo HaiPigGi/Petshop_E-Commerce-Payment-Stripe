@@ -29,3 +29,4 @@ export const sendEmail = async (req, to, subject, text) => {
     console.log("Error sending email:", error.message);
   }
 };
+

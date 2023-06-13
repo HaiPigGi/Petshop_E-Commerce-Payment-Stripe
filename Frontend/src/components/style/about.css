@@ -1,0 +1,90 @@
+.about-container {
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  }
+  
+  .about-container.animate {
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  
+  .custom-card {
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    animation: slideIn 1s ease-in-out;
+    animation: slideLeft 5s infinite;
+    background-color: #526D82;
+    color: #fff; /* Pilihan warna teks yang kontras */
+  }
+  
+  /* about.css */
+
+@keyframes slideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideLeft {
+    0% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(-10%);
+    }
+    100% {
+      transform: translateX(0);
+    }
+  }
+  
+
+  
+  
+  .card-title {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .about-container {
+    padding: 20px;
+    background: linear-gradient(180deg, #FAFAFA 0%, #526D82 50%, #C2CFD8 100%);
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  
+  h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #555;
+    margin-top: 20px;
+  }
+  
+  @media (max-width: 767px) {
+    .card {
+      width: 100%;
+    }
+  }
+  

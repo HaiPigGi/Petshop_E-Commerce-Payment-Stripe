@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   MDBContainer,
   MDBCard,
@@ -16,14 +16,30 @@ import bg3 from "../public/wave.svg";
 
 function Register() {
   const [active, setActive] = useState(false);
-
+  const [users,setUser]=useState('');
   const [name, setName] =useState('');
   const [email, setEmail] =useState('');
   const [nomer, setNomer] =useState('');
   const [password, setPassword] =useState('');
   const [confPassword, setconfPassword] =useState('');
   const [msg,setMsg] =useState('');
+  const [nomerError, setNomerError] = useState('');
   const history=useHistory();
+
+
+  useEffect(() => {
+    getUsers();
+  }, []);
+
+  const getUsers = async () => {
+    try {
+      const response = await axios.get('http://localhost:5000/users');
+      setUser(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   const Register =async (e) => {
     e.preventDefault();

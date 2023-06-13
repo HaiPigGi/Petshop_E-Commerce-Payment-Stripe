@@ -19,13 +19,14 @@ const HomeProduct = () => {
       console.log(error);
     }
   };
+
   const handleBuy = async (id) => {
     try {
       const email = sessionStorage.getItem('email');
       const token = sessionStorage.getItem('token');
   
       // Check if email and token exist in session storage
-      if (!email || !token) {
+      if (!email && !token) {
         // Redirect user to login
         history.push("/login");
         return;

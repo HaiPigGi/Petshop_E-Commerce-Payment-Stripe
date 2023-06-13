@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useHistory } from "react-router-dom";
 import { Button } from "react-bootstrap";
-import navAdmin from "./navAdmin";
-
-const AdTransPage = () => {
+const HomeOwner = () => {
   const [products, setProducts] = useState([]);
   const history = useHistory();
   useEffect(() => {
@@ -20,10 +18,17 @@ const AdTransPage = () => {
     }
   };
 
-  const back = () => {
-    history.push("/admin");
+  const Logout = async () => {
+    try {
+      await axios.delete("http://localhost:5000/logout");
+      sessionStorage.removeItem("email");
+      sessionStorage.removeItem("token");
+      console.log("session Hapus: ", sessionStorage);
+      history.push("/");
+    } catch (error) {
+      console.log(error);
+    }
   };
-
   return (
     <div>
       <div className="columns mt-5 is-centered">
@@ -35,9 +40,12 @@ const AdTransPage = () => {
               borderRadius: "50px", // Membuat button menjadi oval
               border: "2px solid black", // Menambahkan border disekitarnya
             }}
-            onClick={back}>
-            Back
+            onClick={Logout}>
+            Logout
           </Button>
+          <h1 style={{ textDecoration: "underline" }}>
+            Rekap Penjualan Petshop
+          </h1>
           <table className="table is-striped is-fullwidth">
             <thead>
               <tr>
@@ -47,6 +55,7 @@ const AdTransPage = () => {
                 <th>ID Pelanggan</th>
                 <th>ID Pegawai</th>
                 <th>Total Harga</th>
+                <th>Tanggal Pemasukan</th>
               </tr>
             </thead>
             <tbody>
@@ -58,6 +67,7 @@ const AdTransPage = () => {
                   <td>{product.id_Pelanggan}</td>
                   <td>{product.id_Pegawai}</td>
                   <td> Rp.{product.total_harga}</td>
+                  <td> Rp.{product.createdAt}</td>
                   <td>
                     <figure className="image is-4by3 card-image"></figure>
                   </td>
@@ -71,4 +81,4 @@ const AdTransPage = () => {
   );
 };
 
-export default AdTransPage;
+export default HomeOwner;

@@ -3,11 +3,10 @@ import stripeAPI from "stripe";
 import Transaksi from "../models/Payment.js";
 import Order from "../models/Order.js";
 import Users from "../models/usersModel.js";
+import { sendEmail } from "./sendEmail.js";
 import { v4 as uuidv4 } from "uuid";
 
-export const stripe = stripeAPI(
-  "sk_test_51N5V5GK1ezlSiaycWDcfoNb0UmqRyTjkr6XbqnoHdo3ipueWbutszvEkCovvzPMqsMoDPlujLuvjTHXQcqhNtxXR00oDRquGuT"
-);
+export const stripe = stripeAPI(process.env.STRIPE_API_KEY);
 
 export const getPayment = async (req, res) => {
   try {
@@ -92,6 +91,8 @@ export const processPayment = async (req, res) => {
       cardExpMonth: cardToken.exp_month,
       cardExpYear: cardToken.exp_year,
     });
+
+    // Send email notification
 
     // Return success message, product details, and transaction
     return res.status(200).json({

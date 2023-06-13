@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+import "../style/style.css";
 
 function Contact() {
   const [name, setName] = useState("");
@@ -13,15 +14,14 @@ function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const email = sessionStorage.getItem('email');
-    const token = sessionStorage.getItem('token');
+    const email = sessionStorage.getItem("email");
+    const token = sessionStorage.getItem("token");
 
     if (!email || !token) {
       // Redirect user to login
       history.push("/login");
       return;
     }
-
     try {
       const response = await axios.post("http://localhost:5000/sendMail", {
         to: "anjaybetul2@gmail.com",
@@ -40,10 +40,18 @@ function Contact() {
   };
 
   return (
-    <div className="container">
-      <h1>Contact Us</h1>
-      {successMessage && <Alert variant="success">{successMessage}</Alert>}
-      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+    <div className="container contact">
+      <h1 className="contact-heading">Contact Us</h1>
+      {successMessage && (
+        <Alert variant="success" className="contact-alert">
+          {successMessage}
+        </Alert>
+      )}
+      {errorMessage && (
+        <Alert variant="danger" className="contact-alert">
+          {errorMessage}
+        </Alert>
+      )}
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>
@@ -66,7 +74,7 @@ function Contact() {
           />
         </Form.Group>
 
-        <Button variant="primary" type="submit">
+        <Button variant="success" type="submit" className="contact-button">
           Submit
         </Button>
       </Form>

@@ -6,9 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./payment.css";
 import card1 from "./public/chip.png";
 import card2 from "./public/visa.png";
-
 import { loadStripe } from "@stripe/stripe-js";
-
 const stripePromise = loadStripe(
   "pk_test_51N5V5GK1ezlSiaycX0E1H7OruYV6ZZw7AMkvEB6x2o2Jn0jajjwq2ypNLcjhuqEkANTyWzqHZ8T4cT416dNwWhyj00Nu85SgO9"
 );
@@ -30,6 +28,7 @@ const PaymentPage = () => {
   const [cardExpYear, setCardExpYear] = useState("");
   const [cardCVC, setCardCVC] = useState("");
   const [idd, setUserId] = useState("");
+  const [email, setEmail] = useState("");
   const { id } = useParams();
 
   useEffect(() => {
@@ -53,6 +52,7 @@ const PaymentPage = () => {
         productId: id,
         quantity: quantity,
         cardToken: cardToken,
+        email: email, // Include the email in the request
       });
 
       const { clientSecret, msg, userId, product, id_Produk } = response.data;
@@ -63,6 +63,32 @@ const PaymentPage = () => {
         setProductPrice(product.harga * quantity);
         setUserId(userId);
         setproductId(id_Produk);
+        setEmail(email);
+
+        // Send email notification
+        const storeName = "Zoepy Petshop";
+        const emailSubject = "Payment Successfull";
+        const emailText = `\tThank you for your payment at ${storeName}! Your payment was successful.
+        We hope you are satisfied with the products you purchased and had a delightful shopping experience at our store. 
+        We always strive to provide quality products and excellent customer service to our valued customers.
+       \t Please retain the following details for your reference:
+        
+        Store: ${storeName}
+        Product: ${product.name}
+        Price: ${product.harga}
+        Payment ID: ${userId}
+        
+        If you have any questions or need further assistance, please don't hesitate to contact us. Enjoy your purchase!
+        
+        Best regards,
+        ${storeName}`;
+        const send = await axios.post("http://localhost:5000/sendMail", {
+          to: email, // Use the recipient email obtained from the response data
+          subject: emailSubject,
+          text: emailText,
+        });
+        console.log(send.data);
+        console.log(email);
       }
     } catch (error) {
       console.log(error.response.data);
@@ -175,7 +201,7 @@ const PaymentPage = () => {
           <Modal.Footer>
             <h5 className="notification">
               If you want to pick up your item at the store, please show your
-              transaction ID.
+              transaction ID Or You Can See In Your Email.
             </h5>
           </Modal.Footer>
           <Modal.Footer>
@@ -234,6 +260,16 @@ const PaymentPage = () => {
                   min="1"
                 />
               </Form.Group>
+              <Form.Group controlId="formEmail">
+                <Form.Label>Email:</Form.Label>
+                <Form.Control
+                  type="email"
+                  value={email}
+                  placeholder="Please Input Your Real Email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Form.Group>
+
               <div className="container mt-5">
                 <div className="card-container">
                   <div className="front">

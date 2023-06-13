@@ -37,28 +37,52 @@ export const getUserById = async (req, res) => {
 
 export const Register = async (req, res) => {
   const { name, email, nomer, password, confPassword, role } = req.body;
-  if (password !== confPassword) {
-    return res
-      .status(400)
-      .json({ msg: "Password dan Confirm Password Tidak Cocok" });
-  }
   
-  const salt = await bcrypt.genSalt();
-  const hashedPassword = await bcrypt.hash(password, salt);
+  if (password !== confPassword) {
+    return res.status(400).json({ msg: "Password dan Confirm Password Tidak Cocok" });
+  }
+
+  if (password.length < 8) {
+    return res.status(400).json({ msg: "Password harus memiliki minimal 8 karakter" });
+  }
+
+  // Check if the phone number is 12 digits long
+  if (nomer.length !== 12) {
+    return res.status(400).json({ msg: "Nomor telepon harus terdiri dari 12 digit" });
+  }
 
   try {
+    // Check if the phone number is already registered
+    const existingNomer = await Users.findOne({ where: { Nomer: nomer } });
+    if (existingNomer) {
+      return res.status(400).json({ msg: "Nomor telepon sudah digunakan" });
+    }
+
+    // Check if the email is already registered
+    const existingEmail = await Users.findOne({ where: { email: email } });
+    if (existingEmail) {
+      return res.status(400).json({ msg: "Email sudah digunakan" });
+    }
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     await Users.create({
       name: name,
       email: email,
       Nomer: nomer,
       password: hashedPassword,
-      role: role ? role : 'user' // Jika role diisi, gunakan nilainya; jika tidak, set nilai sebagai "user"
+      role: role ? role : "user",
     });
+
     res.json({ msg: "Registrasi berhasil" });
   } catch (err) {
     console.log(err);
   }
 };
+
+
+
 
 
 export const Login = async (req, res) => {
@@ -95,6 +119,10 @@ export const Login = async (req, res) => {
     return res
       .status(200)
       .json({ uuid, name, email, Nomer, role, token, redirectTo: "/admin" });
+  } else if (role === "owner") {
+    return res
+      .status(200)
+      .json({ uuid, name, email, Nomer, role, token, redirectTo: "/owner" });
   } else {
     return res
       .status(200)

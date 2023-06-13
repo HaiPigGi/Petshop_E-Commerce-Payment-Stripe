@@ -3,7 +3,7 @@ import axios from "axios";
 import "../style/style.css";
 import NavbarUser from './NavbarUser';
 import NavbarComp from './NavbarComp';
-
+import FootersB from "./FooterB";
 import { useHistory } from "react-router-dom";
 
 const ProductPage = () => {
@@ -93,6 +93,9 @@ const ProductPage = () => {
             </div>
           </div>
         </div>
+        <section>
+          <FootersB />
+        </section>
       </div>
     </div>
   );

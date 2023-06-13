@@ -88,7 +88,7 @@ const NavAdmin = () => {
             style={{
               padding: "20px 5px",
             }}>
-            Sidebar Footer
+            Zoepy Petshop
           </div>
         </CDBSidebarFooter>
       </CDBSidebar>

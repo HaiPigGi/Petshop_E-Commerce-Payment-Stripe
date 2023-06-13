@@ -416,8 +416,119 @@ body {
 
 
 
-  /* Untuk Login */
+  .contact {
+    max-width: 500px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    background-color: #526D82;
+    animation: fade-in 0.5s;
+  }
   
+  .contact-heading {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .contact-alert {
+    margin-bottom: 20px;
+  }
+  
+  .contact-button {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #526D82;
+  }
+  
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* style.css */
+
+.footer {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.social-media a {
+  color: #526D82;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.social-media a:hover {
+  color: #FF8C00;
+}
+
+.footer p {
+  font-size: 14px;
+  margin: 0;
+}
+
+
+/* CSS sebelumnya */
+
+/* Tambahkan media query untuk layar dengan lebar kurang dari 1280px */
+@media (max-width: 1280px) {
+  .home-slider {
+    width: 100%;
+  }
+
+  .home-slider-image {
+    width: 150px;
+    height: 150px;
+    margin-left: 30%;
+    margin-top: 5%;
+  }
+
+  .home-slider-title {
+    margin-right: -30%;
+    margin-top: 5%;
+  }
+
+  .navbar-container h3 {
+    font-size: 1.2rem;
+  }
+
+  .product-item {
+    margin: 0.5rem;
+  }
+
+  .product-item img {
+    height: 150px;
+  }
+
+  .product-item h3,
+  .product-item p {
+    font-size: 1rem;
+  }
+
+  .buy-button {
+    padding: 8px 16px;
+  }
+
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* CSS setelah media query */
+
+/* CSS sebelumnya */
+
+
+
+
   
   
   

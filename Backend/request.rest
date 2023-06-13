@@ -3,15 +3,16 @@ GET  http://localhost:5000/users
 Authorization: Bearer 
 eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjIsIm5hbWUiOiJLYXBpYmFyYSIsImVtYWlsIjoia2FwaWJhcmFAZ21haWwuY29tIiwiaWF0IjoxNjgzMzg3Njc0LCJleHAiOjE2ODMzODc2OTR9.Kzs19AV-g-Ukjuc6S3COjzemxUX_hT1LcdHgbe39Mjg
 ###
-POST  http://localhost:5000/users
+POST  http://localhost:5000/register
 Content-Type: application/json
 
 {
-    "name" : "Bryan",
-    "email" : "bryan@gmail.com",
+    "name" : "Owner",
+    "email" : "ownerzoepy@gmail.com",
     "nomer" : "081256518211",
-    "password": "ganteng",
-    "confPassword" : "ganteng"
+    "password": "ownerZoepy",
+    "confPassword" : "ownerZoepy",
+    "role" : "owner"
 }
 
 ###

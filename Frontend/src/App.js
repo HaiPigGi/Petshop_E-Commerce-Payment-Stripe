@@ -15,6 +15,7 @@ import HomeUser from './components/homeUser';
 import HomeAdmin from './components/pages/admin/HomeAdmin';
 import AdTransPage from './components/pages/admin/AdTransPage';
 import AdUserPage from './components/pages/admin/AdUserPage';
+import HomeOwner from './components/pages/Owner/HomeOwner';
 //import UserUpPage from './components/pages/UserUpPage';
 function PrivateRoute({ component: Component, ...rest }) {
   const isLoggedIn = sessionStorage.getItem('token');
@@ -24,7 +25,7 @@ function PrivateRoute({ component: Component, ...rest }) {
     <Route
       {...rest}
       render={(props) =>
-        isLoggedIn && email === 'Adminzoepy@gmail.com' ? (
+        isLoggedIn && (email === 'Adminzoepy@gmail.com' || email === 'ownerzoepy@gmail.com') ? (
           <Component {...props} />
         ) : (
           <Redirect to="/login" />
@@ -54,6 +55,7 @@ function App() {
           <PrivateRoute path="/edit/:id" component={EditProd} />
           <PrivateRoute path="/paymentList" component={AdTransPage} />
           <PrivateRoute path="/adminUser" component={AdUserPage} />
+          <PrivateRoute path="/owner" component={HomeOwner} />
           <Route path="/payment/:id" component={PaymentPage} />
         </Switch>
       </div>
