@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { Form, Button, Alert } from "react-bootstrap";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+<<<<<<< HEAD
 import "../style/style.css";
+=======
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
 
 function Contact() {
   const [name, setName] = useState("");
@@ -14,14 +17,23 @@ function Contact() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+<<<<<<< HEAD
     const email = sessionStorage.getItem("email");
     const token = sessionStorage.getItem("token");
+=======
+    const email = sessionStorage.getItem('email');
+    const token = sessionStorage.getItem('token');
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
 
     if (!email || !token) {
       // Redirect user to login
       history.push("/login");
       return;
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
     try {
       const response = await axios.post("http://localhost:5000/sendMail", {
         to: "anjaybetul2@gmail.com",
@@ -40,6 +52,7 @@ function Contact() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="container contact">
       <h1 className="contact-heading">Contact Us</h1>
       {successMessage && (
@@ -52,6 +65,12 @@ function Contact() {
           {errorMessage}
         </Alert>
       )}
+=======
+    <div className="container">
+      <h1>Contact Us</h1>
+      {successMessage && <Alert variant="success">{successMessage}</Alert>}
+      {errorMessage && <Alert variant="danger">{errorMessage}</Alert>}
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
       <Form onSubmit={handleSubmit}>
         <Form.Group controlId="formBasicName">
           <Form.Label>Name</Form.Label>

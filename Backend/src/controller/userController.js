@@ -37,6 +37,7 @@ export const getUserById = async (req, res) => {
 
 export const Register = async (req, res) => {
   const { name, email, nomer, password, confPassword, role } = req.body;
+<<<<<<< HEAD
   
   if (password !== confPassword) {
     return res.status(400).json({ msg: "Password dan Confirm Password Tidak Cocok" });
@@ -50,6 +51,22 @@ export const Register = async (req, res) => {
   if (nomer.length !== 12) {
     return res.status(400).json({ msg: "Nomor telepon harus terdiri dari 12 digit" });
   }
+=======
+  if (password !== confPassword) {
+    return res
+      .status(400)
+      .json({ msg: "Password dan Confirm Password Tidak Cocok" });
+  }
+
+  if (password.length < 8) {
+    return res
+      .status(400)
+      .json({ msg: "Password harus memiliki minimal 8 karakter" });
+  }
+
+  const salt = await bcrypt.genSalt();
+  const hashedPassword = await bcrypt.hash(password, salt);
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
 
   try {
     // Check if the phone number is already registered
@@ -83,8 +100,11 @@ export const Register = async (req, res) => {
 
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> b39ca943dc7d7bbcf26da6f968ce0e6e8c2840ce
 export const Login = async (req, res) => {
   const user = await Users.findOne({
     where: {
