@@ -21,8 +21,11 @@ const app = express();
 const sessionStore = SequelizeStore(session.Store);
 
 const store = new sessionStore({
-  db: db, // Gunakan instance sequelize dari koneksi database
+  db: db,
+  expiration: 300000, // Set session expiration time to 5 minutes (in milliseconds)
 });
+
+
 try {
     await db.authenticate();
     console.log("Database Connected");
@@ -46,7 +49,7 @@ app.use((req, res, next) => {
       saveUninitialized: false,
       store: store,
       cookie: {
-        maxAge: 24 * 60 * 60 * 1000, // Durasi sesi (24 jam dalam contoh ini)
+        maxAge: 300000,  // Durasi sesi 5 menit
         secure: 'auto', // Sesuaikan dengan pengaturan HTTPS Anda
       },
     })

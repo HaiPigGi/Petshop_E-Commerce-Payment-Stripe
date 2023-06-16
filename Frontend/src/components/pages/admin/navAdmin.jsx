@@ -14,15 +14,19 @@ const NavAdmin = () => {
   const history = useHistory();
   const handleLogout = async () => {
     try {
-      await axios.delete("http://localhost:5000/logout");
-      sessionStorage.removeItem("email");
-      sessionStorage.removeItem("token");
+      const response = await axios.delete("http://localhost:5000/logout", {
+        withCredentials: true, // Send session cookies
+      });
+      sessionStorage.removeItem('email');
+      sessionStorage.removeItem('token');
       console.log("session Hapus: ", sessionStorage);
+      console.log("Logout Message: ", response.data.msg); // Menampilkan pesan logout
       history.push("/");
     } catch (error) {
       console.log(error);
     }
   };
+  
 
   return (
     <div

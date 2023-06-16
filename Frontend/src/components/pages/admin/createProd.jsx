@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-import {  Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import "./style/style.css";
+
 const CreateProd = () => {
   const [name, setName] = useState("");
   const [jenis, setJenis] = useState("");
@@ -34,30 +36,32 @@ const CreateProd = () => {
       console.log(error);
     }
   };
+
   const back = () => {
     history.push("/admin");
-  }
+  };
 
   return (
     <div className="columns is-centered mt-5">
-       <Button
-          variant="outline-dark"
-          className="mx-2 mb-5"
-          style={{
-            borderRadius: "50px", // Membuat button menjadi oval
-            border: "2px solid black", // Menambahkan border disekitarnya
-          }}
-          onClick={back}>
-          Back
-        </Button>
+      <Button
+        variant="outline-dark"
+        className="mx-2 mb-5"
+        style={{
+          borderRadius: "50px",
+          border: "2px solid black",
+        }}
+        onClick={back}
+      >
+        Back
+      </Button>
       <div className="column is-half">
-        <form onSubmit={saveProduct}>
-          <div className="field">
-            <label className="label">Product Name</label>
-            <div className="control">
+        <form onSubmit={saveProduct} className="form-container">
+          <div className="form-field">
+            <label className="form-label">Product Name</label>
+            <div className="form-control">
               <input
                 type="text"
-                className="input"
+                className="form-input"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Product Name"
@@ -65,35 +69,35 @@ const CreateProd = () => {
               />
             </div>
           </div>
-          <div className="field">
-              <label className="label">Jenis</label>
-              <div className="control">
-                <label className="radio">
-                  <input
-                    type="radio"
-                    value="barang"
-                    checked={jenis === "barang"}
-                    onChange={(e) => setJenis(e.target.value)}
-                  />
-                  Barang
-                </label>
-                <label className="radio">
-                  <input
-                    type="radio"
-                    value="jasa"
-                    checked={jenis === "jasa"}
-                    onChange={(e) => setJenis(e.target.value)}
-                  />
-                  Jasa
-                </label>
-              </div>
+          <div className="form-field">
+            <label className="form-label">Jenis</label>
+            <div className="form-control">
+              <label className="form-radio">
+                <input
+                  type="radio"
+                  value="Barang"
+                  checked={jenis === "Barang"}
+                  onChange={(e) => setJenis(e.target.value)}
+                />
+                Barang
+              </label>
+              <label className="form-radio">
+                <input
+                  type="radio"
+                  value="jasa"
+                  checked={jenis === "jasa"}
+                  onChange={(e) => setJenis(e.target.value)}
+                />
+                Jasa
+              </label>
             </div>
-          <div className="field">
-            <label className="label">Harga</label>
-            <div className="control">
+          </div>
+          <div className="form-field">
+            <label className="form-label">Harga</label>
+            <div className="form-control">
               <input
                 type="number"
-                className="input"
+                className="form-input"
                 value={harga}
                 onChange={(e) => setHarga(e.target.value)}
                 placeholder="Harga Product"
@@ -102,19 +106,19 @@ const CreateProd = () => {
             </div>
           </div>
 
-          <div className="field">
-            <label className="label">Image</label>
-            <div className="control">
-              <div className="file">
-                <label className="file-label">
+          <div className="form-field">
+            <label className="form-label">Image</label>
+            <div className="form-control">
+              <div className="form-file">
+                <label className="form-file-label">
                   <input
                     type="file"
-                    className="file-input"
+                    className="form-file-input"
                     onChange={loadImage}
                     required
                   />
-                  <span className="file-cta">
-                    <span className="file-label">Choose a file...</span>
+                  <span className="form-file-cta">
+                    <span className="form-file-label">Choose a file...</span>
                   </span>
                 </label>
               </div>
@@ -122,14 +126,14 @@ const CreateProd = () => {
           </div>
 
           {preview && (
-            <figure className="image is-128x128">
+            <figure className="form-image-preview">
               <img src={preview} alt="Preview Image" />
             </figure>
           )}
 
-          <div className="field">
-            <div className="control">
-              <button type="submit" className="button is-success">
+          <div className="form-field">
+            <div className="form-control">
+              <button type="submit" className="form-button">
                 Save
               </button>
             </div>

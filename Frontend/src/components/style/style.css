@@ -528,7 +528,43 @@ body {
 
 
 
+.product-type-container {
+  margin: 2rem 0;
+}
 
-  
-  
+.product-type {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-transform: capitalize;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-gap: 1rem;
+}
+
+.product-type-barang,
+.product-type-jasa {
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+}
+
+
+.animated-card {
+  animation: moveLeftRight 2s infinite alternate;
+}
+
+@keyframes moveLeftRight {
+  0% {
+    transform: translateX(-10px);
+  }
+  100% {
+    transform: translateX(10px);
+  }
+}
+
   

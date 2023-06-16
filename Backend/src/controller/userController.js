@@ -129,10 +129,12 @@ export const Login = async (req, res) => {
       .status(200)
       .json({ uuid, name, email, Nomer, role, token, redirectTo: "/home/user" });
   } else if (role === "admin") {
+    req.session.loginAdmin = true; // Menandai bahwa admin telah login
     return res
       .status(200)
       .json({ uuid, name, email, Nomer, role, token, redirectTo: "/admin" });
   } else if (role === "owner") {
+    req.session.loginOwner = true; // Menandai bahwa owner telah login
     return res
       .status(200)
       .json({ uuid, name, email, Nomer, role, token, redirectTo: "/owner" });
@@ -185,18 +187,58 @@ export const Me = async (req, res) =>{
 }
 
 
+const logoutLocks = {}; // Objek untuk menyimpan status kunci session logout
+
 export const Logout = async (req, res) => {
   try {
     console.log("Session Sebelum Logout:", req.session); // Mengecek session
-    req.session.destroy((err) => {
-      if (err) {
-        console.log(err);
-        return res.status(400).json({ msg: "Tidak dapat logout" });
+
+    if (req.session) {
+      const { user } = req.session;
+      const { role } = user;
+
+      // Cek apakah session logout sedang terkunci
+      if (logoutLocks[role]) {
+        return res.status(503).json({ msg: "Logout sedang diproses, harap tunggu" });
       }
-      res.clearCookie("sid"); // Menghapus cookie sesi
-      res.status(200).json({ msg: "Anda telah logout" });
-      console.log("Session Setelah Logout:", req.session); // Mengecek session
-    });
+
+      // Kunci session logout
+      logoutLocks[role] = true;
+
+      // Logout user
+      if (role === "user") {
+        delete req.session.login;
+        delete req.session.user;
+        req.session.save((err) => {
+          if (err) {
+            console.log(err);
+            delete logoutLocks[role]; // Lepaskan kunci session logout
+            return res.status(500).json({ msg: "Gagal menyimpan session" });
+          }
+          res.clearCookie("sid");
+          res.status(200).json({ msg: "Anda telah logout sebagai user" });
+          console.log("Session Setelah Logout:", req.session);
+          delete logoutLocks[role]; // Lepaskan kunci session logout
+        });
+      } else {
+        // Logout admin dan owner
+        delete req.session.login;
+        req.session.save((err) => {
+          if (err) {
+            console.log(err);
+            delete logoutLocks[role]; // Lepaskan kunci session logout
+            return res.status(500).json({ msg: "Gagal menyimpan session" });
+          }
+          res.clearCookie("sid");
+          res.status(200).json({ msg: "Anda telah logout sebagai admin/owner" });
+          console.log("Session Setelah Logout:", req.session);
+          delete logoutLocks[role]; // Lepaskan kunci session logout
+        });
+      }
+    } else {
+      // Handle jika req.session null atau undefined
+      return res.status(400).json({ msg: "Tidak dapat logout" });
+    }
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: "Internal Server Error" });

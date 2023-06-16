@@ -45,20 +45,38 @@ function Login() {
   const Periksa = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/login", {
-        email: email,
-        password: password,
-      }, {
-        withCredentials: true, // Mengirim cookies session
-      });
+      const response = await axios.post(
+        "http://localhost:5000/login",
+        {
+          email: email,
+          password: password,
+        },
+        {
+          withCredentials: true, // Mengirim cookies session
+        }
+      );
       const { redirectTo } = response.data;
   
       // Check if response data exists
       if (response.data) {
         const { email, token } = response.data;
         if (email && token) {
+          const expirationTime = Date.now() + 300000; // Set expiration time to 5 menit from the current time
           sessionStorage.setItem('email', email);
           sessionStorage.setItem('token', token);
+          sessionStorage.setItem('expirationTime', expirationTime);
+          
+          // Start counting down the remaining time of the session
+          const countdownInterval = setInterval(() => {
+            const currentTime = Date.now();
+            const remainingTime = Math.max(expirationTime - currentTime, 0);
+            console.log("Session expires in:", remainingTime / 1000, "seconds");
+  
+            if (remainingTime === 0) {
+              clearInterval(countdownInterval);
+              console.log("Session expired");
+            }
+          }, 1000);
         }
       }
   
@@ -73,6 +91,8 @@ function Login() {
       }
     }
   };
+  
+  
   
 
   const handleSignUp = () => {

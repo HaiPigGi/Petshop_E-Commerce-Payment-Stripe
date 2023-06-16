@@ -54,6 +54,52 @@ const ProductPage = () => {
       }
     }
   };
+
+  const renderProductsByType = (type) => {
+    const filteredProducts = products.filter((product) => product.jenis === type);
+
+    if (filteredProducts.length === 0) {
+      return null;
+    }
+
+    const productTypeClass = type === "Barang" ? "product-type-barang" : "product-type-jasa";
+
+    return (
+      <div className={`product-type-container ${productTypeClass}`}>
+        <h2 className="product-type">{type === "Barang" ? "Barang" : "Jasa"}</h2>
+        <div className="card-grid">
+          {filteredProducts.map((product) => (
+            <div className="card has-background-cyan animated-card" key={product.id}>
+              <div className="card-image">
+                <div align="center" className="product-item">
+                  <img
+                    src={product.url}
+                    alt="Image"
+                    className="centered-image"
+                  />
+                </div>
+              </div>
+              <div className="card-content">
+                <div className="media">
+                  <div className="media-content">
+                    <p className="title is-4">{product.name}</p>
+                  </div>
+                </div>
+              </div>
+              <footer className="card-footer">
+                <button
+                  onClick={() => handleBuy(product.id)}
+                  className="card-footer-item buy-button"
+                >
+                  Buy
+                </button>
+              </footer>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  };
   
   return (
     <div>
@@ -61,36 +107,8 @@ const ProductPage = () => {
       <div className="container mt-5">
         <div className="columns is-multiline mt-2">
           <div className="column is-full">
-            <div className="card-grid">
-              {products.map((product) => (
-                <div className="card has-background-cyan" key={product.id}>
-                  <div className="card-image">
-                    <div align="center" className="product-item">
-                      <img
-                        src={product.url}
-                        alt="Image"
-                        className="centered-image"
-                      />
-                    </div>
-                  </div>
-                  <div className="card-content">
-                    <div className="media">
-                      <div className="media-content">
-                        <p className="title is-4">{product.name}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <footer className="card-footer">
-                    <button
-                      onClick={() => handleBuy(product.id)}
-                      className="card-footer-item buy-button"
-                    >
-                      Buy
-                    </button>
-                  </footer>
-                </div>
-              ))}
-            </div>
+            {renderProductsByType("Barang")}
+            {renderProductsByType("jasa")}
           </div>
         </div>
         <section>

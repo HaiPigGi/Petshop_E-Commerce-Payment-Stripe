@@ -25,17 +25,19 @@ function NavbarUser() {
 
   const handleLogout = async () => {
     try {
-      await axios.delete("http://localhost:5000/logout", {
-        withCredentials: false, // Send session cookies
+      const response = await axios.delete("http://localhost:5000/logout", {
+        withCredentials: true, // Send session cookies
       });
       sessionStorage.removeItem('email');
       sessionStorage.removeItem('token');
       console.log("session Hapus: ", sessionStorage);
+      console.log("Logout Message: ", response.data.msg); // Menampilkan pesan logout
       history.push("/");
     } catch (error) {
       console.log(error);
     }
   };
+  
   
   
 

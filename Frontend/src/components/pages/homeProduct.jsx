@@ -59,9 +59,9 @@ const HomeProduct = () => {
     <div className="container mt-5">
       <div className="columns is-multiline mt-2">
         <div className="column is-full">
-          <div className="card-grid">
+          <div className="card-grid animated-card-container">
             {displayedProducts.map((product) => (
-              <div className="card has-background-cyan" key={product.id}>
+              <div className="card has-background-cyan animated-card" key={product.id}>
                 <div className="card-image">
                   <div align="center" className="product-item">
                     <img
