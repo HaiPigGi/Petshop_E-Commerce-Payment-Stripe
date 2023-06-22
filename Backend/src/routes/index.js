@@ -7,8 +7,8 @@ const stripeAPI = stripe("sk_test_51N5V5GK1ezlSiaycWDcfoNb0UmqRyTjkr6XbqnoHdo3ip
 import { isAuthenticated } from '../middleware/Auth.js';
 import { getPayment } from '../controller/PaymentController.js';
 import { sendEmail } from '../controller/sendEmail.js';
+import { checkAuth } from '../middleware/verify.js';
 //require("dotenv").config();
-
 
 const router =express.Router();
 router.get("/product",getProduct);
@@ -18,7 +18,6 @@ router.patch('/product/:id', updateProduct);
 router.delete('/product/:id', deleteProduct);
 
 //Routes Gateway for SendMail
-// Route to send an email
 router.post("/sendMail", async (req, res) => {
     const { to, subject, text } = req.body;
   

@@ -26,7 +26,6 @@ function Register() {
   const [nomerError, setNomerError] = useState('');
   const history=useHistory();
 
-
   useEffect(() => {
     getUsers();
   }, []);

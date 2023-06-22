@@ -168,6 +168,7 @@ const PaymentPage = () => {
   const handleCVVInputChange = () => {
     document.querySelector(".cvv-box").innerText = cardCVC;
   };
+  
 
   return (
     <div className="payment-container">

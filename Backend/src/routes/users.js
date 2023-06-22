@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
     }
   });
   
-  router.get('/home/user', verify, (req, res) => {
+  router.get('/home/user', checkAuth, (req, res) => {
     // Handle request for /home/user
     // ...
     res.status(200).json({ msg: 'Authenticated User Route' });
